@@ -1,14 +1,41 @@
-<%- include('includes/head'); %>
+<%- include('includes/head') %>
+<%- include('includes/nav') %>
 
-<section class="container">
-  <h1><%= umaVariavelLocal %></h1>
+<div class="conteiner">
+  <div class="row">
+    <div class="col-lg-2"></div>
 
-  <form action="/" method="post">
-    <input type="hidden" name="_csrf" value="<%= csrfToken  %>">
-    <label>Cliente</label>
-    <input type="text" name="cliente">
-    <button>Submit</button>
-  </form>
-</section>
+    <div class="col-lg-8 my-3">
+      <h1 class=" text-center">Agenda</h1>
+      <p class="text-center lead">Seus contatos estão aqui abaixo:</p>
 
-<%- include('includes/footer'); %>
+      <div class="row">
+        <div class="col">
+          <div class="alert alert-danger">Erro 001</div>
+        </div>
+      </div>
+
+      <div class="responsive-table">
+        <table class="table">
+          <tr>
+            <td>lucas</td>
+            <td>souza</td>
+            <td>11958359311</td>
+            <td>lucasglsd.souza@gmail.com</td>
+          </tr>
+          <tr>
+            <td>lucas</td>
+            <td>souza</td>
+            <td>11958359311</td>
+            <td>lucasglsd.souza@gmail.com</td>
+          </tr>
+        </table>
+      </div>
+
+    </div>
+
+    <div class="col-lg-2"></div>
+  </div>
+</div>
+
+  <%- include('includes/footer') %>

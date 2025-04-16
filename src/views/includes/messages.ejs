@@ -1,0 +1,12 @@
+<% if (errors) { %>
+
+    <div class="row">
+        <div class="col my-3">
+            <div class="alert alert-danger">Error1</div>
+            <% errors.forEath(erro=>{ %>
+                <%= erro %> <br>
+                <% } ) %>
+        </div>
+    </div>
+
+    <% } %>

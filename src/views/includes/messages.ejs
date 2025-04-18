@@ -1,12 +1,19 @@
-<% if (errors) { %>
+<% if (errors && errors.length > 0) { %>
+  <div class="alert alert-danger">
+    <ul>
+      <% errors.forEach(function(error) { %>
+        <li><%= error %></li>
+      <% }); %>
+    </ul>
+  </div>
+<% } %>
 
-    <div class="row">
-        <div class="col my-3">
-            <div class="alert alert-danger">Error1</div>
-            <% errors.forEath(erro=>{ %>
-                <%= erro %> <br>
-                <% } ) %>
-        </div>
-    </div>
-
-    <% } %>
+<% if (success && success.length > 0) { %>
+  <div class="alert alert-success">
+    <ul>
+      <% success.forEach(function(msg) { %>
+        <li><%= msg %></li>
+      <% }); %>
+    </ul>
+  </div>
+<% } %>

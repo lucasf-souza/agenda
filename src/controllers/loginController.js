@@ -9,8 +9,6 @@ exports.index = (req, res) => {
 
   res.render('login', {
     csrfToken: req.csrfToken(),
-    errors,
-    success
   });
 };
 
@@ -19,8 +17,7 @@ exports.register = async function (req, res) {
   await login.register();
 
   if (login.errors.length > 0) {
-    login.errors.forEach(err => req.flash('errors', err));
-
+    req.flash('errors',login.errors)
     console.log('Erros enviados para o flash:', login.errors);
 
     return req.session.save(() => res.redirect('/login'));

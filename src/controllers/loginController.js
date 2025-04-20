@@ -1,11 +1,9 @@
 const Login = require('../models/loginmodel');
 
 exports.index = (req, res) => {
+  if (req.session.user) return res.render('login-logado')
   const errors = req.flash('errors');
   const success = req.flash('success');
-
-  console.log('Erros capturados:', errors);
-  console.log('Successo capturado:', success);
 
   res.render('login', {
     csrfToken: req.csrfToken(),
@@ -13,6 +11,7 @@ exports.index = (req, res) => {
 };
 
 exports.register = async function (req, res) {
+  try{
   const login = new Login(req.body);
   await login.register();
 
@@ -22,9 +21,14 @@ exports.register = async function (req, res) {
 
     return req.session.save(() => res.redirect('/login'));
   }
+  }catch(e){
+    console.log(e)
+  return res.render('404')
+  }
 
   req.flash('success', 'Usuário cadastrado com sucesso!');
-  return req.session.save(() => res.redirect('/login'));
+  req.session.user = login.user;
+  return req.session.save(() => res.redirect('/login-logado'));
 };
 
 exports.login = async function (req, res) {
@@ -40,9 +44,9 @@ exports.login = async function (req, res) {
   }
 
   req.flash('success', 'Login realizado com sucesso!');
-  return req.session.save(() => res.redirect('/'));
+  req.session.user = login.user 
+  return req.session.save(() => res.redirect('/login'));
 };
-
 
 
 

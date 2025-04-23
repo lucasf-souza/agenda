@@ -1,4 +1,4 @@
-const contato = require ('../models/ContatoModel')
+const Contato = require ('../models/ContatoModel')
 
 exports.index = (req, res) => {
     res.render('contato')
@@ -12,12 +12,12 @@ exports.register = async (req, res) => {
       if (contato.errors.length > 0) {
         console.log('Erros de validação:', contato.errors); 
         req.flash('errors', contato.errors);
-        req.session.save(() => res.redirect('back'));
+        req.session.save(() => res.redirect('/Contato'));
         return;
       }
   
       req.flash('success', 'Contato registrado com sucesso.');
-      req.session.save(() => res.redirect('back'));
+      req.session.save(() => res.redirect('/Contato'));
       return;
   
     } catch (e) {

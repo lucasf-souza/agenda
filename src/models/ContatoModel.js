@@ -12,10 +12,12 @@ const ContatoSchema = new mongoose.Schema({
 
 const ContatoModel = mongoose.model('Contato', ContatoSchema);
 
-function Contato(body) {
-  this.body = body
-  this.errors = []
-  this.contato = null
+class Contato {
+  constructor(body) {
+    this.body = body;
+    this.errors = [];
+    this.contato = null;
+  }
 }
 
 Contato.prototype.register = async function() {

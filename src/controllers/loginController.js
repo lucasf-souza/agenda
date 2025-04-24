@@ -11,25 +11,34 @@ exports.index = (req, res) => {
 };
 
 exports.register = async function (req, res) {
-  try{
-  const login = new Login(req.body);
-  await login.register();
+  try {
+    const login = new Login(req.body);
+    await login.register();
 
-  if (login.errors.length > 0) {
-    req.flash('errors',login.errors)
-    console.log('Erros enviados para o flash:', login.errors);
+    // Se houver erros durante o registro, exibe-os
+    if (login.errors.length > 0) {
+      req.flash('errors', login.errors);  // Envia os erros para o flash
+      console.log('Erros enviados para o flash:', login.errors);
 
-    return req.session.save(() => res.redirect('/login'));
+      return res.render('login', { // Renderiza a página de login novamente com os erros
+        csrfToken: req.csrfToken(),
+        errors: req.flash('errors'),
+      });
+    }
+
+    // Se o usuário foi registrado com sucesso
+    req.flash('success', 'Usuário cadastrado com sucesso!');
+    return res.render('login', {  // Renderiza a página de login novamente com a mensagem de sucesso
+      csrfToken: req.csrfToken(),
+      success: req.flash('success'),  // A mensagem de sucesso é passada aqui
+    });
+    
+  } catch (e) {
+    console.log(e);
+    return res.render('404');  // Caso ocorra algum erro inesperado
   }
-  }catch(e){
-    console.log(e)
-  return res.render('404')
-  }
-
-  req.flash('success', 'Usuário cadastrado com sucesso!');
-  req.session.user = login.user;
-  return req.session.save(() => res.redirect('/login-logado'));
 };
+
 
 exports.login = async function (req, res) {
   const login = new Login(req.body);
